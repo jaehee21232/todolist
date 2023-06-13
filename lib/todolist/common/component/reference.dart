@@ -13,7 +13,7 @@ class AddReference extends StatelessWidget {
             onPressed: () async {
               Navigator.pushNamed(context, "/referenceScreen");
             },
-            child: Text("참조하기"))
+            child: Text("참조넣기"))
       ],
     );
   }

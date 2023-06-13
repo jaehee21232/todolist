@@ -5,6 +5,6 @@ final dateProvider = StateProvider<DateTime>(
   (ref) => DateTime.now(),
 );
 final todoProvider = StateProvider<String>(
-  (ref) => "todo",
+  (ref) => "None",
 );
 final referenceProvider = StateProvider<List<TodoModel>>((ref) => []);
