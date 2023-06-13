@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:todolist/todolist/common/model/todomodel.dart';
 
 final dateProvider = StateProvider<DateTime>(
   (ref) => DateTime.now(),
@@ -6,4 +7,4 @@ final dateProvider = StateProvider<DateTime>(
 final todoProvider = StateProvider<String>(
   (ref) => "todo",
 );
-final reference = StateProvider<List>((ref) => []);
+final referenceProvider = StateProvider<List<TodoModel>>((ref) => []);

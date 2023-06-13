@@ -14,6 +14,7 @@ class AddDate extends ConsumerWidget {
             "${_selectedDate.year}-${_selectedDate.month}-${_selectedDate.day}"),
         ElevatedButton(
             onPressed: () {
+              //날짜 입력 받기
               showDatePicker(
                 context: context,
                 initialDate: DateTime.now(),
