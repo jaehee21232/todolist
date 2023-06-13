@@ -12,6 +12,8 @@ test(DateTime date, String todo, bool success, List<TodoModel> references) {
     "date": "${date.year}-${date.month}-${date.day}",
     "todo": todo,
     "success": success,
-    "reference": reference,
+    "reference":
+        //[ , ] 제거
+        reference.toString().replaceAll(RegExp('[^a-zA-Z0-9가-힣\\s]'), ""),
   });
 }
