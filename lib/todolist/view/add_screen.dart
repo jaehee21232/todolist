@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todolist/todolist/common/component/add_button.dart';
 import 'package:todolist/todolist/common/component/date.dart';
 import 'package:todolist/common/layout/default_layout.dart';
 import 'package:todolist/todolist/common/component/reference.dart';
@@ -9,13 +10,18 @@ class TodoAddScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultLayout(
+    return const DefaultLayout(
+      title: "추가하기",
       child: Center(
         child: Column(
-          children: [const AddDate(), const AddTodo(), AddReference()],
+          children: [
+            AddDate(),
+            AddTodo(),
+            AddReference(),
+            AddButton(),
+          ],
         ),
       ),
-      title: "추가하기",
     );
   }
 }
