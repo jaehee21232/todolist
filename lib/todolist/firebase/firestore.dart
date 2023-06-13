@@ -9,7 +9,7 @@ test(DateTime date, String todo, bool success, List<TodoModel> references) {
     reference.add(references[i].id);
   }
   db.collection("todos").doc().set({
-    "date": date,
+    "date": "${date.year}-${date.month}-${date.day}",
     "todo": todo,
     "success": success,
     "reference": reference,
