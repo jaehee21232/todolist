@@ -3,7 +3,7 @@ import 'package:todolist/todolist/common/model/todomodel.dart';
 
 final db = FirebaseFirestore.instance;
 
-test(DateTime date, String todo, bool success, List<TodoModel> references) {
+DataAdd(DateTime date, String todo, bool success, List<TodoModel> references) {
   final reference = [];
   for (var i = 0; i < references.length; i++) {
     reference.add(references[i].id);

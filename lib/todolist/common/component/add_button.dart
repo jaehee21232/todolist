@@ -13,10 +13,8 @@ class AddButton extends ConsumerWidget {
     final reference = ref.watch(referenceProvider);
     return ElevatedButton(
         onPressed: () {
-          print(date);
-          print(todo);
-          print(reference);
-          test(date, todo, false, reference);
+          DataAdd(date, todo, false, reference);
+          Navigator.pop(context);
         },
         child: Text("추가하기"));
   }
