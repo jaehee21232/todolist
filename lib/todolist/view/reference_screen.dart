@@ -49,7 +49,6 @@ class ReferenceScreen extends ConsumerWidget {
             width: 100,
             child: ElevatedButton(
                 onPressed: () {
-                  print(referenceTodo);
                   ref
                       .read(referenceProvider.notifier)
                       .update((state) => referenceTodo);
@@ -65,7 +64,11 @@ class ReferenceScreen extends ConsumerWidget {
   Future<List<TodoModel>> future() async {
     List<TodoModel> testlist = [];
     //다 가져오기
-    await FirebaseFirestore.instance.collection("todos").get().then(
+    await FirebaseFirestore.instance
+        .collection("todos")
+        .orderBy("add_date", descending: true)
+        .get()
+        .then(
       (querySnapshot) {
         for (var docSnapshot in querySnapshot.docs) {
           // 모델로 만들어서 리스트에 넣기

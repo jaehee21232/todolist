@@ -40,7 +40,7 @@ class _Custom_ListTileState extends State<Custom_ListTile> {
             padding: const EdgeInsets.all(15.0),
             child: Text(
               widget.todo.todo,
-              style: TextStyle(fontSize: 18),
+              style: TextStyle(fontSize: 14),
             ),
           ),
           alignment: Alignment.centerLeft,
