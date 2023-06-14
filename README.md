@@ -1,6 +1,6 @@
 # todolist
 
-A new Flutter project.
+글림 미디어 채용 과제
 
 ## Getting Started
 
