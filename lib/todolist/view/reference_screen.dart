@@ -27,8 +27,6 @@ class ReferenceScreen extends ConsumerWidget {
           future: future(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              print(snapshot.data!.length);
-              print("요거임");
               return ListView.builder(
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {

@@ -4,11 +4,13 @@ import 'package:todolist/todolist/common/model/todomodel.dart';
 final db = FirebaseFirestore.instance;
 
 DataAdd(DateTime date, String todo, bool success, List<TodoModel> references) {
+  DateTime today = DateTime.now();
   final reference = [];
   for (var i = 0; i < references.length; i++) {
     reference.add(references[i].id);
   }
   db.collection("todos").doc().set({
+    "add_date": today.toString(),
     "date": "${date.year}-${date.month}-${date.day}",
     "todo": todo,
     "success": success,
