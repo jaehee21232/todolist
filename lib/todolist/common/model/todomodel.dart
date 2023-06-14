@@ -34,6 +34,7 @@ class TodoModel {
     data["success"] = success;
     data["date"] = date;
     data["id"] = id;
+    data["add_date"] = DateTime.now();
     return data;
   }
 }

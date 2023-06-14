@@ -23,3 +23,8 @@ DataAdd(DateTime date, String todo, bool success, List<TodoModel> references) {
 DataRemove(TodoModel data) {
   db.collection("todos").doc(data.id).delete();
 }
+
+DataReplace(TodoModel data) {
+  print(data.toMap());
+  db.collection("todos").doc(data.id).set(data.toMap());
+}

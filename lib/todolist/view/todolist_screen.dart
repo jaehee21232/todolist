@@ -57,7 +57,7 @@ class TodoListScreen extends StatelessWidget {
     try {
       final Stream<QuerySnapshot> snapshot = FirebaseFirestore.instance
           .collection("todos")
-          //add_date 기준으로
+          //add_date 기준으로 정렬
           .orderBy("add_date", descending: true)
           .snapshots();
 
