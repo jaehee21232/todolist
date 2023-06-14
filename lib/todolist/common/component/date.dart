@@ -26,7 +26,7 @@ class AddDate extends ConsumerWidget {
                     .update((state) => selectedDate!);
               });
             },
-            child: Text("날짜 선택"))
+            child: Text("날짜 변경"))
       ],
     );
   }
