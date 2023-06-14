@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todolist/todolist/common/component/todo_detail_dialog.dart';
 import 'package:todolist/todolist/common/model/todomodel.dart';
 
 class TodoBlock extends StatelessWidget {
@@ -8,7 +9,12 @@ class TodoBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        showDialog(
+          context: context,
+          builder: (context) => TodoDetailDialog(data: data),
+        );
+      },
       child: Container(
         width: double.infinity,
         height: 60,

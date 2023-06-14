@@ -17,8 +17,6 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -29,7 +27,7 @@ class MyApp extends StatelessWidget {
             ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 39, 89, 184)),
         useMaterial3: true,
       ),
-      home: TodoListScreen(),
+      home: const TodoListScreen(),
       routes: {
         "/addscreen": (context) => const TodoAddScreen(),
         "/referenceScreen": (context) => const ReferenceScreen(),

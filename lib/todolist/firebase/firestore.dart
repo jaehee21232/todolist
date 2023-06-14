@@ -19,3 +19,7 @@ DataAdd(DateTime date, String todo, bool success, List<TodoModel> references) {
         reference.toString().replaceAll(RegExp('[^a-zA-Z0-9가-힣\\s]'), ""),
   });
 }
+
+DataRemove(TodoModel data) {
+  db.collection("todos").doc(data.id).delete();
+}

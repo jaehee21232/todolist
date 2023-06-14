@@ -28,6 +28,7 @@ class TodoListScreen extends StatelessWidget {
         child: StreamBuilder(
           stream: streamTodo(),
           builder: (context, snapshot) {
+            //데이터 대기 상태일때 로딩 화면
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(
                 child: CircularProgressIndicator(),
@@ -37,13 +38,13 @@ class TodoListScreen extends StatelessWidget {
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (context, index) {
                   final doc = snapshot.data.docs[index];
+                  //snapshot을 TodoModel로 만들어줌
                   final data = TodoModel.fromJson(
                       todo: doc["todo"],
                       date: doc["date"],
                       id: snapshot.data.docs[index].id,
                       reference: doc["reference"],
                       success: doc["success"]);
-                  print(data);
                   return TodoBlock(data: data);
                 },
               );
@@ -56,6 +57,7 @@ class TodoListScreen extends StatelessWidget {
     try {
       final Stream<QuerySnapshot> snapshot = FirebaseFirestore.instance
           .collection("todos")
+          //add_date 기준으로
           .orderBy("add_date", descending: true)
           .snapshots();
 
