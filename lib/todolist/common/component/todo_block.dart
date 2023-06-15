@@ -8,8 +8,9 @@ class TodoBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
       onTap: () {
+        //탭 하면 dialog 페이지로
         showDialog(
           context: context,
           builder: (context) => TodoDetailDialog(data: data),
@@ -18,7 +19,8 @@ class TodoBlock extends StatelessWidget {
       child: Container(
         width: double.infinity,
         height: 60,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
+            color: data.success ? Colors.blue[200] : Colors.white,
             border: Border(bottom: BorderSide(color: Colors.black, width: 1))),
         child: Center(
           child: Row(
@@ -26,7 +28,7 @@ class TodoBlock extends StatelessWidget {
               Icon(data.success == false
                   ? Icons.check_circle_outline
                   : Icons.check_circle),
-              SizedBox(
+              const SizedBox(
                 width: 12,
               ),
               Text(

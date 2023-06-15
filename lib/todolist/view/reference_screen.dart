@@ -78,9 +78,7 @@ class ReferenceScreen extends ConsumerWidget {
               id: docSnapshot.id,
               reference: docSnapshot.data()["reference"],
               success: docSnapshot.data()["success"]));
-          print('${docSnapshot.id} => ${docSnapshot.data()}');
         }
-        print(testlist);
       },
     );
     return testlist;

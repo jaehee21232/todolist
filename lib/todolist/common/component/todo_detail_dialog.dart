@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:todolist/todolist/common/const/ref_snackbar.dart';
 import 'package:todolist/todolist/common/model/todomodel.dart';
 import 'package:todolist/todolist/common/riverpod/addtodo_provider.dart';
 import 'package:todolist/todolist/firebase/firestore.dart';
@@ -46,11 +48,70 @@ class TodoDetailDialog extends ConsumerWidget {
             onChanged: (value) {
               print(_TodoTextController.text);
             },
-          )
+          ),
+          SizedBox(
+            height: 30,
+          ),
+          Text("참조 중인 TODO"),
+          FutureBuilder(
+            future: RefFuture(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                var ref_list = [];
+                //todo 비교하기
+                for (var i = 0; i < snapshot.data!.length; i++) {
+                  if (data.reference
+                      .split(" ")
+                      .contains(snapshot.data![i].id)) {
+                    ref_list.add(snapshot.data![i].todo);
+                  }
+                }
+                return Text(ref_list.toString());
+              } else {
+                return CircularProgressIndicator();
+              }
+            },
+          ),
         ],
       ),
       actionsAlignment: MainAxisAlignment.spaceAround,
       actions: [
+        ElevatedButton(
+            onPressed: () async {
+              List<bool> successTodo = [];
+              Future<List<TodoModel>> getTodo = RefFuture().then(
+                (value) {
+                  for (var i = 0; i < value.length; i++) {
+                    if (data.reference.split(" ").contains(value[i].id)) {
+                      successTodo.add(value[i].success);
+                    }
+                  }
+                  if (successTodo.contains(false)) {
+                    Navigator.pop(context);
+                    ScaffoldMessenger.of(context).showSnackBar(ref_snackBar);
+                    return value;
+                  } else {
+                    final replacedata = TodoModel(
+                      date: data.date,
+                      id: data.id,
+                      reference: data.reference,
+                      success: !data.success,
+                      todo: data.todo,
+                    );
+                    DataSuccess({
+                      "date": data.date,
+                      "id": data.id,
+                      "reference": data.reference,
+                      "success": !data.success,
+                      "todo": data.todo
+                    });
+                    Navigator.pop(context);
+                    return value;
+                  }
+                },
+              );
+            },
+            child: Text("완료")),
         ElevatedButton(
             onPressed: () {
               if (_TodoTextController.text == "") {
@@ -67,15 +128,56 @@ class TodoDetailDialog extends ConsumerWidget {
                 Navigator.pop(context);
               }
             },
-            child: Text("완료")),
+            child: Text("수정")),
         ElevatedButton(
             autofocus: _TodoTextController.text == "" ? false : true,
-            onPressed: () {
-              DataRemove(data);
-              Navigator.pop(context);
+            onPressed: () async {
+              List<bool> successTodo = [];
+              Future<List<TodoModel>> getTodo = RefFuture().then(
+                (value) {
+                  for (var i = 0; i < value.length; i++) {
+                    if (data.reference.split(" ").contains(value[i].id)) {
+                      successTodo.add(value[i].success);
+                    }
+                  }
+                  if (successTodo.contains(false)) {
+                    Navigator.pop(context);
+                    ScaffoldMessenger.of(context).showSnackBar(ref_snackBar);
+                    return value;
+                  } else {
+                    DataRemove(data);
+                    Navigator.pop(context);
+                    return value;
+                  }
+                },
+              );
             },
             child: Text("삭제"))
       ],
     );
+  }
+
+  Future<List<TodoModel>> RefFuture() async {
+    List<TodoModel> Id_list = [];
+    await FirebaseFirestore.instance
+        .collection("todos")
+        .orderBy("add_date", descending: true)
+        .get()
+        .then(
+      (querySnapshot) {
+        for (var docSnapshot in querySnapshot.docs) {
+          // 모델로 만들어서 리스트에 넣기
+          Id_list.add(TodoModel.fromJson(
+              todo: docSnapshot.data()["todo"],
+              date: docSnapshot.data()["date"],
+              id: docSnapshot.id,
+              reference: docSnapshot.data()["reference"],
+              success: docSnapshot.data()["success"]));
+          print('${docSnapshot.id} => ${docSnapshot.data()}');
+        }
+        print(Id_list);
+      },
+    );
+    return Id_list;
   }
 }

@@ -28,3 +28,8 @@ DataReplace(TodoModel data) {
   print(data.toMap());
   db.collection("todos").doc(data.id).set(data.toMap());
 }
+
+DataSuccess(Map<String, Object> map) {
+  print(map);
+  db.collection("todos").doc(map["id"].toString()).update(map);
+}
