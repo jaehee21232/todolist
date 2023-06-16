@@ -24,6 +24,7 @@ class TodoDetailDialog extends ConsumerWidget {
       title: Center(child: Text(data.todo)),
       content: Column(
         children: [
+          Text("ID : ${data.id}"),
           Text(
               "${_selectedDate.year}-${_selectedDate.month}-${_selectedDate.day}"),
           ElevatedButton(
