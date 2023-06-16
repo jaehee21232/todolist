@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todolist/todolist/view/add_screen.dart';
 import 'package:todolist/todolist/view/reference_screen.dart';
-import 'package:todolist/todolist/view/splash%20_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:todolist/todolist/view/todolist_screen.dart';
 import 'firebase_options.dart';

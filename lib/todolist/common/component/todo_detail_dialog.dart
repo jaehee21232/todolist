@@ -91,13 +91,6 @@ class TodoDetailDialog extends ConsumerWidget {
                     ScaffoldMessenger.of(context).showSnackBar(ref_snackBar);
                     return value;
                   } else {
-                    final replacedata = TodoModel(
-                      date: data.date,
-                      id: data.id,
-                      reference: data.reference,
-                      success: !data.success,
-                      todo: data.todo,
-                    );
                     DataSuccess({
                       "date": data.date,
                       "id": data.id,
@@ -111,7 +104,7 @@ class TodoDetailDialog extends ConsumerWidget {
                 },
               );
             },
-            child: Text("완료")),
+            child: Text(data.success == true ? "수정" : "완료")),
         ElevatedButton(
             onPressed: () {
               if (_TodoTextController.text == "") {
