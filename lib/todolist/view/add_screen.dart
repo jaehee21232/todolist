@@ -16,8 +16,17 @@ class TodoAddScreen extends StatelessWidget {
         child: Column(
           children: [
             AddDate(),
+            SizedBox(
+              height: 16,
+            ),
             AddTodo(),
+            SizedBox(
+              height: 16,
+            ),
             AddReference(),
+            SizedBox(
+              height: 16,
+            ),
             AddButton(),
           ],
         ),
