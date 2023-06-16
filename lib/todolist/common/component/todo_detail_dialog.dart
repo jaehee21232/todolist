@@ -44,6 +44,7 @@ class TodoDetailDialog extends ConsumerWidget {
               child: Text("날짜 변경")),
           //todo 변경
           TextField(
+            decoration: InputDecoration(hintText: "TODO를 적어주세요!"),
             controller: _TodoTextController,
             onChanged: (value) {
               print(_TodoTextController.text);
