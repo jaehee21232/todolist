@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:todolist/common/layout/appbar.dart';
 import 'package:todolist/common/layout/default_layout.dart';
 import 'package:todolist/todolist/common/component/custom_tile.dart';
 import 'package:todolist/todolist/common/model/todomodel.dart';
@@ -21,7 +22,7 @@ class ReferenceScreen extends ConsumerWidget {
     }
 
     return DefaultLayout(
-      title: "참조 페이지",
+      appBar: renderAppBar("참조 페이지"),
       child: Stack(children: [
         FutureBuilder(
           future: future(),

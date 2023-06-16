@@ -1,11 +1,8 @@
 import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:todolist/common/layout/default_layout.dart';
-import 'package:todolist/todolist/common/component/custom_tile.dart';
-import 'package:todolist/todolist/common/component/reference.dart';
+import 'package:todolist/todolist/common/component/search_dialog.dart';
 import 'package:todolist/todolist/common/component/todo_block.dart';
 import 'package:todolist/todolist/common/model/todomodel.dart';
 
@@ -15,7 +12,32 @@ class TodoListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultLayout(
-        title: "TodoList",
+        appBar: AppBar(
+          title: Text(
+            "TodoList",
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          elevation: 1,
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
+          centerTitle: true,
+          actions: [
+            IconButton(
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => SearchDialog(),
+                  );
+                },
+                icon: Icon(
+                  Icons.search,
+                  size: 30,
+                ))
+          ],
+        ),
         floatingActionButton: FloatingActionButton(
           child: const Icon(
             Icons.add,
