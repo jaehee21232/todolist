@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:todolist/todolist/common/component/todo_block.dart';
+import 'package:todolist/todolist/common/model/todomodel.dart';
 
 class SearchDialog extends StatefulWidget {
   const SearchDialog({super.key});
@@ -8,6 +11,8 @@ class SearchDialog extends StatefulWidget {
 }
 
 class _SearchDialogState extends State<SearchDialog> {
+  Future<QuerySnapshot>? futureSearchResults;
+  TextEditingController textController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -17,35 +22,66 @@ class _SearchDialogState extends State<SearchDialog> {
       title: Center(child: Text("검색")),
       content: Column(
         children: [
-          TextField(
-            decoration: InputDecoration(hintText: "검색"),
+          TextFormField(
+            controller: textController,
+            decoration: InputDecoration(
+              hintText: "검색",
+            ),
+            onFieldSubmitted: SearchTodo,
           ),
           SizedBox(
             height: 10,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton(onPressed: () {}, child: Text("성공 여부")),
-              ElevatedButton(onPressed: () {}, child: Text("날짜"))
-            ],
           ),
           SizedBox(
             height: 10,
           ),
           SizedBox(
               width: 400,
-              child: ElevatedButton(onPressed: () {}, child: Text("검색"))),
+              child: ElevatedButton(
+                  onPressed: () {
+                    print(textController.text);
+                    SearchTodo(textController.text);
+                  },
+                  child: Text("검색"))),
+          futureSearchResults == null ? Text("") : SearchTrue()
         ],
       ),
     );
   }
 
-  SerachTrue() {
+  SearchTodo(str) {
+    print(str);
+    Future<QuerySnapshot> allTodos = FirebaseFirestore.instance
+        .collection("todos")
+        .where("todo", isEqualTo: str)
+        .get();
+    print(allTodos);
+    print("이거임");
+    setState(() {
+      futureSearchResults = allTodos;
+    });
+  }
+
+  SearchTrue() {
     return FutureBuilder(
+      future: futureSearchResults,
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return CircularProgressIndicator();
+        } else {
+          if (snapshot.data!.docs.isEmpty) {
+            return Text("검색 결과 없음");
+          } else {
+            print(snapshot.data!.docs[0].runtimeType);
+            TodoModel data = TodoModel.fromJson(
+              todo: snapshot.data!.docs[0]["todo"],
+              date: snapshot.data!.docs[0]["date"],
+              id: snapshot.data!.docs[0]["id"],
+              reference: snapshot.data!.docs[0]["reference"],
+              success: snapshot.data!.docs[0]["success"],
+            );
+            return TodoBlock(data: data);
+          }
         }
       },
     );
