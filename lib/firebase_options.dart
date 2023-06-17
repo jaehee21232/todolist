@@ -67,7 +67,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '552635757419',
     projectId: 'todolist-c63a3',
     storageBucket: 'todolist-c63a3.appspot.com',
-    iosClientId: '552635757419-ja25hfiec2l2bnco6qep34fc38r8aru7.apps.googleusercontent.com',
+    iosClientId:
+        '552635757419-ja25hfiec2l2bnco6qep34fc38r8aru7.apps.googleusercontent.com',
     iosBundleId: 'com.example.todolist',
   );
 
@@ -77,7 +78,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '552635757419',
     projectId: 'todolist-c63a3',
     storageBucket: 'todolist-c63a3.appspot.com',
-    iosClientId: '552635757419-1m5rvurkeuq6pa5aggsqujkrnbl3rs9f.apps.googleusercontent.com',
+    iosClientId:
+        '552635757419-1m5rvurkeuq6pa5aggsqujkrnbl3rs9f.apps.googleusercontent.com',
     iosBundleId: 'com.example.todolist.RunnerTests',
   );
 }

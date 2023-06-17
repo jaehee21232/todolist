@@ -12,9 +12,9 @@ class TodoDetailDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    TextEditingController _TodoTextController =
+    TextEditingController todoTextController =
         TextEditingController(text: data.todo);
-    DateTime _selectedDate = ref.watch(dateProvider);
+    DateTime selectedDate = ref.watch(dateProvider);
 
     return AlertDialog(
       //모서리 둥글게
@@ -26,7 +26,7 @@ class TodoDetailDialog extends ConsumerWidget {
         children: [
           Text("ID : ${data.id}"),
           Text(
-              "${_selectedDate.year}-${_selectedDate.month}-${_selectedDate.day}"),
+              "${selectedDate.year}-${selectedDate.month}-${selectedDate.day}"),
           ElevatedButton(
               onPressed: () {
                 //날짜 입력 받기
@@ -42,35 +42,35 @@ class TodoDetailDialog extends ConsumerWidget {
                       .update((state) => selectedDate!);
                 });
               },
-              child: Text("날짜 변경")),
+              child: const Text("날짜 변경")),
           //todo 변경
           TextField(
-            decoration: InputDecoration(hintText: "TODO를 적어주세요!"),
-            controller: _TodoTextController,
+            decoration: const InputDecoration(hintText: "TODO를 적어주세요!"),
+            controller: todoTextController,
             onChanged: (value) {
-              print(_TodoTextController.text);
+              print(todoTextController.text);
             },
           ),
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
-          Text("참조 중인 TODO"),
+          const Text("참조 중인 TODO"),
           FutureBuilder(
             future: RefFuture(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                var ref_list = [];
+                var refList = [];
                 //todo 비교하기
                 for (var i = 0; i < snapshot.data!.length; i++) {
                   if (data.reference
                       .split(" ")
                       .contains(snapshot.data![i].id)) {
-                    ref_list.add(snapshot.data![i].todo);
+                    refList.add(snapshot.data![i].todo);
                   }
                 }
-                return Text(ref_list.toString());
+                return Text(refList.toString());
               } else {
-                return CircularProgressIndicator();
+                return const CircularProgressIndicator();
               }
             },
           ),
@@ -81,7 +81,7 @@ class TodoDetailDialog extends ConsumerWidget {
         ElevatedButton(
             onPressed: () async {
               List<bool> successTodo = [];
-              Future<List<TodoModel>> getTodo = RefFuture().then(
+              RefFuture().then(
                 (value) {
                   for (var i = 0; i < value.length; i++) {
                     if (data.reference.split(" ").contains(value[i].id)) {
@@ -109,26 +109,26 @@ class TodoDetailDialog extends ConsumerWidget {
             child: Text(data.success == true ? "미완료" : "완료")),
         ElevatedButton(
             onPressed: () {
-              if (_TodoTextController.text == "") {
+              if (todoTextController.text == "") {
                 return null;
               } else {
                 //model로 보내기 위해서 todo만 change된 값으로 다시 만들어서 보냄
                 final replacedata = TodoModel(
-                    date: _selectedDate.toString(),
+                    date: selectedDate.toString(),
                     id: data.id,
                     reference: data.reference,
                     success: data.success,
-                    todo: _TodoTextController.text);
+                    todo: todoTextController.text);
                 DataReplace(replacedata);
                 Navigator.pop(context);
               }
             },
-            child: Text("수정")),
+            child: const Text("수정")),
         ElevatedButton(
-            autofocus: _TodoTextController.text == "" ? false : true,
+            autofocus: todoTextController.text == "" ? false : true,
             onPressed: () async {
               List<bool> successTodo = [];
-              Future<List<TodoModel>> getTodo = RefFuture().then(
+              RefFuture().then(
                 (value) {
                   for (var i = 0; i < value.length; i++) {
                     if (data.reference.split(" ").contains(value[i].id)) {
@@ -147,13 +147,13 @@ class TodoDetailDialog extends ConsumerWidget {
                 },
               );
             },
-            child: Text("삭제"))
+            child: const Text("삭제"))
       ],
     );
   }
 
   Future<List<TodoModel>> RefFuture() async {
-    List<TodoModel> Id_list = [];
+    List<TodoModel> idList = [];
     await FirebaseFirestore.instance
         .collection("todos")
         .orderBy("add_date", descending: true)
@@ -162,7 +162,7 @@ class TodoDetailDialog extends ConsumerWidget {
       (querySnapshot) {
         for (var docSnapshot in querySnapshot.docs) {
           // 모델로 만들어서 리스트에 넣기
-          Id_list.add(TodoModel.fromJson(
+          idList.add(TodoModel.fromJson(
               todo: docSnapshot.data()["todo"],
               date: docSnapshot.data()["date"],
               id: docSnapshot.id,
@@ -170,9 +170,9 @@ class TodoDetailDialog extends ConsumerWidget {
               success: docSnapshot.data()["success"]));
           print('${docSnapshot.id} => ${docSnapshot.data()}');
         }
-        print(Id_list);
+        print(idList);
       },
     );
-    return Id_list;
+    return idList;
   }
 }

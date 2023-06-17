@@ -7,7 +7,7 @@ AppBar? renderAppBar(title) {
     return AppBar(
       title: Text(
         title!,
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.w500,
         ),

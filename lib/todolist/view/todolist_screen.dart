@@ -13,7 +13,7 @@ class TodoListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return DefaultLayout(
         appBar: AppBar(
-          title: Text(
+          title: const Text(
             "TodoList",
             style: TextStyle(
               fontSize: 20,
@@ -29,10 +29,10 @@ class TodoListScreen extends StatelessWidget {
                 onPressed: () {
                   showDialog(
                     context: context,
-                    builder: (context) => SearchDialog(),
+                    builder: (context) => const SearchDialog(),
                   );
                 },
-                icon: Icon(
+                icon: const Icon(
                   Icons.search,
                   size: 30,
                 ))
@@ -52,7 +52,7 @@ class TodoListScreen extends StatelessWidget {
           builder: (context, snapshot) {
             //데이터 대기 상태일때 로딩 화면
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             } else {

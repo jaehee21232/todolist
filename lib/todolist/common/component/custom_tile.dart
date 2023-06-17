@@ -36,14 +36,14 @@ class _Custom_ListTileState extends State<Custom_ListTile> {
         width: double.infinity,
         height: 50,
         child: Align(
+          alignment: Alignment.centerLeft,
           child: Padding(
             padding: const EdgeInsets.all(15.0),
             child: Text(
               widget.todo.todo,
-              style: TextStyle(fontSize: 14),
+              style: const TextStyle(fontSize: 14),
             ),
           ),
-          alignment: Alignment.centerLeft,
         ),
       ),
     );

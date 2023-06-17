@@ -20,6 +20,6 @@ class AddButton extends ConsumerWidget {
             Navigator.pop(context);
           }
         },
-        child: Text("추가하기"));
+        child: const Text("추가하기"));
   }
 }

@@ -21,7 +21,8 @@ class TodoBlock extends StatelessWidget {
         height: 60,
         decoration: BoxDecoration(
             color: data.success ? Colors.blue[200] : Colors.white,
-            border: Border(bottom: BorderSide(color: Colors.black, width: 1))),
+            border: const Border(
+                bottom: BorderSide(color: Colors.black, width: 1))),
         child: Center(
           child: Row(
             children: [
@@ -33,7 +34,7 @@ class TodoBlock extends StatelessWidget {
               ),
               Text(
                 data.todo,
-                style: TextStyle(fontSize: 20),
+                style: const TextStyle(fontSize: 20),
               ),
             ],
           ),

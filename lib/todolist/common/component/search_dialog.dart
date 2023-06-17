@@ -19,20 +19,20 @@ class _SearchDialogState extends State<SearchDialog> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
       ),
-      title: Center(child: Text("검색")),
+      title: const Center(child: Text("검색")),
       content: Column(
         children: [
           TextFormField(
             controller: textController,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               hintText: "검색",
             ),
             onFieldSubmitted: SearchTodo,
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           SizedBox(
@@ -42,8 +42,8 @@ class _SearchDialogState extends State<SearchDialog> {
                     print(textController.text);
                     SearchTodo(textController.text);
                   },
-                  child: Text("검색"))),
-          futureSearchResults == null ? Text("") : SearchTrue()
+                  child: const Text("검색"))),
+          futureSearchResults == null ? const Text("") : SearchTrue()
         ],
       ),
     );
@@ -67,10 +67,10 @@ class _SearchDialogState extends State<SearchDialog> {
       future: futureSearchResults,
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
-          return CircularProgressIndicator();
+          return const CircularProgressIndicator();
         } else {
           if (snapshot.data!.docs.isEmpty) {
-            return Text("검색 결과 없음");
+            return const Text("검색 결과 없음");
           } else {
             print(snapshot.data!.docs[0].runtimeType);
             TodoModel data = TodoModel.fromJson(

@@ -39,7 +39,7 @@ class ReferenceScreen extends ConsumerWidget {
                 },
               );
             } else {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             }
           },
         ),
@@ -55,7 +55,7 @@ class ReferenceScreen extends ConsumerWidget {
                       .update((state) => referenceTodo);
                   Navigator.pop(context);
                 },
-                child: Text("확인")),
+                child: const Text("확인")),
           ),
         )
       ]),

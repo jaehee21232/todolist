@@ -13,7 +13,7 @@ class TodoAddScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return DefaultLayout(
       appBar: renderAppBar("추가하기"),
-      child: Center(
+      child: const Center(
         child: Column(
           children: [
             AddDate(),
