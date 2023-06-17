@@ -106,7 +106,7 @@ class TodoDetailDialog extends ConsumerWidget {
                 },
               );
             },
-            child: Text(data.success == true ? "수정" : "완료")),
+            child: Text(data.success == true ? "미완료" : "완료")),
         ElevatedButton(
             onPressed: () {
               if (_TodoTextController.text == "") {
