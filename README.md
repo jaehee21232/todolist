@@ -4,7 +4,7 @@
 
 ## 실행 방법
 
-[안드로이드](https://github.com/jaehee21232/releases/latest/download/1.0.0/todolist.apk)
+[안드로이드](https://github.com/jaehee21232/todolist/releases/latest/download/todolist.apk)
 
 ### ⚙️ 개발 환경
   - `Flutter`
