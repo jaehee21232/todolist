@@ -4,7 +4,7 @@ class DefaultLayout extends StatelessWidget {
   final Widget child;
   final Color? backgroundColor;
   final Widget? bottomNavigationBar;
-  final AppBar? appBar;
+  final appBar;
   final Widget? floatingActionButton;
   const DefaultLayout(
       {super.key,

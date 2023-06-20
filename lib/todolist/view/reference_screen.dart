@@ -22,7 +22,7 @@ class ReferenceScreen extends ConsumerWidget {
     }
 
     return DefaultLayout(
-      appBar: renderAppBar("참조 페이지"),
+      appBar: CommonAppBar(title: "참조 페이지"),
       child: Stack(children: [
         FutureBuilder(
           future: future(),
