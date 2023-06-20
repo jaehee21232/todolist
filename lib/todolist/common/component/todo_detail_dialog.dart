@@ -90,7 +90,8 @@ class TodoDetailDialog extends ConsumerWidget {
                   }
                   if (successTodo.contains(false)) {
                     Navigator.pop(context);
-                    ScaffoldMessenger.of(context).showSnackBar(ref_snackBar);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        RefSnackBar(text: "참조중인 TODO가 완료 안됨!") as SnackBar);
                     return value;
                   } else {
                     DataSuccess({
@@ -137,7 +138,8 @@ class TodoDetailDialog extends ConsumerWidget {
                   }
                   if (successTodo.contains(false)) {
                     Navigator.pop(context);
-                    ScaffoldMessenger.of(context).showSnackBar(ref_snackBar);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        RefSnackBar(text: "참조중인 TODO가 완료 안됨!") as SnackBar);
                     return value;
                   } else {
                     DataRemove(data);
