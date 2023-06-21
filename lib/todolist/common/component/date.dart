@@ -7,11 +7,10 @@ class AddDate extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final _selectedDate = ref.watch(dateProvider);
+    final selectedDate = ref.watch(dateProvider);
     return Column(
       children: [
-        Text(
-            "${_selectedDate.year}-${_selectedDate.month}-${_selectedDate.day}"),
+        Text("${selectedDate.year}-${selectedDate.month}-${selectedDate.day}"),
         ElevatedButton(
             onPressed: () {
               //날짜 입력 받기
@@ -26,7 +25,7 @@ class AddDate extends ConsumerWidget {
                     .update((state) => selectedDate!);
               });
             },
-            child: Text("날짜 변경"))
+            child: const Text("날짜 변경"))
       ],
     );
   }

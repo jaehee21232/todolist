@@ -18,6 +18,15 @@ class TodoModel {
         date: date, reference: reference, todo: todo, success: success, id: id);
   }
 
+  factory TodoModel.fromMap({required Map<String, dynamic> map}) {
+    return TodoModel(
+        todo: map["todo"],
+        date: map["date"],
+        id: map["id"],
+        reference: map["reference"],
+        success: map["success"]);
+  }
+
   Map<String, dynamic> toMap() {
     Map<String, dynamic> data = {};
     data["reference"] = reference;

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 class CommonAppBar extends StatelessWidget {
-  final title;
+  final String title;
   const CommonAppBar({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       title: Text(
-        title!,
+        title,
         style: const TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.w500,

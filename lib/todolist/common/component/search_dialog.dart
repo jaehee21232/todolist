@@ -27,7 +27,7 @@ class _SearchDialogState extends State<SearchDialog> {
             decoration: const InputDecoration(
               hintText: "검색",
             ),
-            onFieldSubmitted: SearchTodo,
+            onFieldSubmitted: searchTodo,
           ),
           const SizedBox(
             height: 10,
@@ -39,30 +39,26 @@ class _SearchDialogState extends State<SearchDialog> {
               width: 400,
               child: ElevatedButton(
                   onPressed: () {
-                    print(textController.text);
-                    SearchTodo(textController.text);
+                    searchTodo(textController.text);
                   },
                   child: const Text("검색"))),
-          futureSearchResults == null ? const Text("") : SearchTrue()
+          futureSearchResults == null ? const Text("") : searchTrue()
         ],
       ),
     );
   }
 
-  SearchTodo(str) {
-    print(str);
+  searchTodo(str) {
     Future<QuerySnapshot> allTodos = FirebaseFirestore.instance
         .collection("todos")
         .where("todo", isEqualTo: str)
         .get();
-    print(allTodos);
-    print("이거임");
     setState(() {
       futureSearchResults = allTodos;
     });
   }
 
-  SearchTrue() {
+  searchTrue() {
     return FutureBuilder(
       future: futureSearchResults,
       builder: (context, snapshot) {
@@ -72,7 +68,6 @@ class _SearchDialogState extends State<SearchDialog> {
           if (snapshot.data!.docs.isEmpty) {
             return const Text("검색 결과 없음");
           } else {
-            print(snapshot.data!.docs[0].runtimeType);
             TodoModel data = TodoModel.fromJson(
               todo: snapshot.data!.docs[0]["todo"],
               date: snapshot.data!.docs[0]["date"],

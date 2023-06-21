@@ -47,16 +47,13 @@ class TodoDetailDialog extends ConsumerWidget {
           TextField(
             decoration: const InputDecoration(hintText: "TODO를 적어주세요!"),
             controller: todoTextController,
-            onChanged: (value) {
-              print(todoTextController.text);
-            },
           ),
           const SizedBox(
             height: 30,
           ),
           const Text("참조 중인 TODO"),
           FutureBuilder(
-            future: RefFuture(),
+            future: refFuture(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 var refList = [];
@@ -81,7 +78,7 @@ class TodoDetailDialog extends ConsumerWidget {
         ElevatedButton(
             onPressed: () async {
               List<bool> successTodo = [];
-              RefFuture().then(
+              refFuture().then(
                 (value) {
                   for (var i = 0; i < value.length; i++) {
                     if (data.reference.split(" ").contains(value[i].id)) {
@@ -91,10 +88,11 @@ class TodoDetailDialog extends ConsumerWidget {
                   if (successTodo.contains(false)) {
                     Navigator.pop(context);
                     ScaffoldMessenger.of(context).showSnackBar(
-                        RefSnackBar(text: "참조중인 TODO가 완료 안됨!") as SnackBar);
+                        const RefSnackBar(text: "참조중인 TODO가 완료 안됨!")
+                            as SnackBar);
                     return value;
                   } else {
-                    DataSuccess({
+                    dataSuccess({
                       "date": data.date,
                       "id": data.id,
                       "reference": data.reference,
@@ -111,7 +109,6 @@ class TodoDetailDialog extends ConsumerWidget {
         ElevatedButton(
             onPressed: () {
               if (todoTextController.text == "") {
-                return null;
               } else {
                 //model로 보내기 위해서 todo만 change된 값으로 다시 만들어서 보냄
                 final replacedata = TodoModel(
@@ -120,7 +117,7 @@ class TodoDetailDialog extends ConsumerWidget {
                     reference: data.reference,
                     success: data.success,
                     todo: todoTextController.text);
-                DataReplace(replacedata);
+                dataReplace(replacedata);
                 Navigator.pop(context);
               }
             },
@@ -129,7 +126,7 @@ class TodoDetailDialog extends ConsumerWidget {
             autofocus: todoTextController.text == "" ? false : true,
             onPressed: () async {
               List<bool> successTodo = [];
-              RefFuture().then(
+              refFuture().then(
                 (value) {
                   for (var i = 0; i < value.length; i++) {
                     if (data.reference.split(" ").contains(value[i].id)) {
@@ -139,10 +136,11 @@ class TodoDetailDialog extends ConsumerWidget {
                   if (successTodo.contains(false)) {
                     Navigator.pop(context);
                     ScaffoldMessenger.of(context).showSnackBar(
-                        RefSnackBar(text: "참조중인 TODO가 완료 안됨!") as SnackBar);
+                        const RefSnackBar(text: "참조중인 TODO가 완료 안됨!")
+                            as SnackBar);
                     return value;
                   } else {
-                    DataRemove(data);
+                    dataRemove(data);
                     Navigator.pop(context);
                     return value;
                   }
@@ -154,7 +152,7 @@ class TodoDetailDialog extends ConsumerWidget {
     );
   }
 
-  Future<List<TodoModel>> RefFuture() async {
+  Future<List<TodoModel>> refFuture() async {
     List<TodoModel> idList = [];
     await FirebaseFirestore.instance
         .collection("todos")
@@ -170,9 +168,7 @@ class TodoDetailDialog extends ConsumerWidget {
               id: docSnapshot.id,
               reference: docSnapshot.data()["reference"],
               success: docSnapshot.data()["success"]));
-          print('${docSnapshot.id} => ${docSnapshot.data()}');
         }
-        print(idList);
       },
     );
     return idList;

@@ -15,7 +15,7 @@ class AddButton extends ConsumerWidget {
         onPressed: () {
           if (todo == "None" || todo == "") {
           } else {
-            DataAdd(date, todo, false, reference);
+            dataAdd(date, todo, false, reference);
             Navigator.pop(context);
           }
         },

@@ -13,16 +13,16 @@ class ReferenceScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     List<TodoModel> referenceTodo = [];
-    AddReference(TodoModel todo) {
+    addReference(TodoModel todo) {
       referenceTodo.add(todo);
     }
 
-    RemoveReference(TodoModel todo) {
+    removeReference(TodoModel todo) {
       referenceTodo.remove(todo);
     }
 
     return DefaultLayout(
-      appBar: CommonAppBar(title: "참조 페이지"),
+      appBar: const CommonAppBar(title: "참조 페이지"),
       child: Stack(children: [
         FutureBuilder(
           future: future(),
@@ -31,10 +31,10 @@ class ReferenceScreen extends ConsumerWidget {
               return ListView.builder(
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
-                  return Custom_ListTile(
+                  return CustomListTile(
                     todo: snapshot.data![index],
-                    AddRef: AddReference,
-                    RemoveRef: RemoveReference,
+                    addRef: addReference,
+                    removeRef: removeReference,
                   );
                 },
               );
